@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+Allow: /data-parser
+Allow: /search
+Disallow: /private/
+
+# Prevent crawling of API endpoints if any
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://vectorvista.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+Request-rate: 30/60
+
+# Allow major search engines
+User-agent: Googlebot
+Allow: /
+Request-rate: 100/60
+
+User-agent: Bingbot
+Allow: /
+Request-rate: 100/60
+
+User-agent: DuckDuckBot
+Allow: /
+Request-rate: 100/60
