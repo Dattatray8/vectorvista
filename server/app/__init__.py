@@ -8,4 +8,5 @@ def create_app():
     from .routes.index_routes import index_bp
     app.register_blueprint(index_bp, url_prefix='/api/v1')
     load_model()  
+    print("Server started successfully.")
     return app

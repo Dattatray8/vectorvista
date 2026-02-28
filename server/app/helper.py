@@ -13,7 +13,7 @@ def load_model():
     global _model
     if _model is None:
         print("Loading model...")
-        _model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+        _model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
         print("Model loaded successfully.")
     return _model
 
