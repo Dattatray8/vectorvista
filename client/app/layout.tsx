@@ -15,12 +15,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VectorVista - AI-Powered Semantic Data Search",
-  description: "Upload JSON data and search using natural language with intelligent semantic retrieval. Find relevant information based on meaning, not just keywords.",
-  keywords: ["semantic search", "JSON search", "natural language search", "data analysis", "MongoDB export", "AI search"],
-  authors: [{ name: "VectorVista" }],
+  title: "VectorVista - AI-Powered Semantic Data Search Platform",
+  description: "Upload JSON data and search using natural language with intelligent semantic retrieval. Find relevant information based on meaning, not just keywords. Free AI-powered data search tool.",
+  keywords: [
+    "semantic search",
+    "JSON search",
+    "natural language search",
+    "data analysis",
+    "MongoDB export",
+    "AI search",
+    "vector search",
+    "intelligent search",
+    "data retrieval",
+    "semantic analysis"
+  ],
+  authors: [{ name: "VectorVista Team" }],
   creator: "VectorVista",
   publisher: "VectorVista",
+  abstract: "Semantic data search and retrieval platform powered by AI",
   formatDetection: {
     email: false,
     telephone: false,
@@ -31,23 +43,39 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+  metadataBase: new URL("https://vectorvista.vercel.app"),
+  alternates: {
+    canonical: "https://vectorvista.vercel.app",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vectorvista.com",
-    title: "VectorVista - AI-Powered Semantic Data Search",
-    description: "Upload JSON data and search using natural language with intelligent semantic retrieval.",
+    url: "https://vectorvista.vercel.app",
+    title: "VectorVista - AI-Powered Semantic Data Search Platform",
+    description: "Upload JSON data and search using natural language with intelligent semantic retrieval. Find relevant information based on meaning, not just keywords.",
     siteName: "VectorVista",
+    images: [
+      {
+        url: "https://vectorvista.vercel.app/icon.png",
+        width: 192,
+        height: 192,
+        alt: "VectorVista Logo",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "VectorVista - AI-Powered Semantic Data Search",
-    description: "Upload JSON data and search using natural language with intelligent semantic retrieval.",
+    description: "Search JSON data using natural language with AI-powered semantic retrieval",
+    images: "https://vectorvista.vercel.app/icon.png",
     creator: "@vectorvista",
+    site: "@vectorvista",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     "max-image-preview": "large",
     "max-snippet": -1,
     "max-video-preview": -1,
@@ -56,9 +84,11 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   applicationName: "VectorVista",
+  category: "Productivity",
   referrer: "origin-when-cross-origin",
   appleWebApp: {
     capable: true,
@@ -66,7 +96,7 @@ export const metadata: Metadata = {
     title: "VectorVista",
   },
   verification: {
-    google: "your-google-verification-code",
+    google: "CUgZ4iltYciqsTDuhbAUXfdWx_iZcCR_ubltPVw-cXE",
   },
 };
 
@@ -87,21 +117,38 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "VectorVista",
-    "description": "AI-powered semantic data search platform for JSON and MongoDB data",
-    "url": "https://vectorvista.com",
-    "applicationCategory": "DataAnalysis",
+    "alternateName": "Vector Vista",
+    "description": "AI-powered semantic data search platform for JSON and MongoDB data. Search using natural language with intelligent retrieval.",
+    "url": "https://vectorvista.vercel.app",
+    "image": "https://vectorvista.vercel.app/og-image.png",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "DataManagement",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
     },
     "featureList": [
       "Natural language search",
       "JSON file upload",
       "MongoDB export support",
-      "Semantic retrieval",
-      "Speech recognition"
-    ]
+      "Semantic retrieval based on meaning",
+      "Real-time search results",
+      "Vector embeddings",
+      "Multi-session support"
+    ],
+    "browserRequirements": "HTML5",
+    "downloadUrl": "https://vectorvista.vercel.app",
+    "softwareRequirements": "Modern web browser",
+    "operatingSystem": "Web-based, platform independent"
   };
 
   return (
