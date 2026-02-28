@@ -53,7 +53,7 @@ export default function Page() {
           <Link href='/data-parser'
             className="px-8 py-3 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors shadow-sm"
           >
-            Start Exploring
+            Get Started
           </Link>
         </motion.div>
       </section>
