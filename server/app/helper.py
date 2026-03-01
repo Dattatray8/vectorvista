@@ -1,27 +1,25 @@
-from sentence_transformers import SentenceTransformer
+from google import genai
 import uuid
 import os
 from sarvamai import SarvamAI
 from dotenv import load_dotenv
+from google.genai import types
 
 load_dotenv()
 
-_model = None
-
-
-def load_model():
-    global _model
-    if _model is None:
-        print("Loading model...")
-        _model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-        print("Model loaded successfully.")
-    return _model
-
-
 def get_embedding(text: str):
-    model = load_model()
-    embedding = model.encode(text)
-    return embedding.tolist()
+    client = genai.Client(api_key=os.getenv("GENAI_API_KEY"))
+    
+    result = client.models.embed_content(
+        model="gemini-embedding-001",
+        contents=text,
+        config=types.EmbedContentConfig(
+            output_dimensionality=768,
+        )
+    )
+    
+    return result.embeddings[0].values
+    
 
 
 def normalize_json_to_text(data, parent_key=""):
@@ -51,7 +49,7 @@ def generate_session_id():
     return str(uuid.uuid4())
 
 
-def summarize_data(data, query:str):
+def summarize_data(data, query: str):
     SAVRAMAI_API_KEY = os.getenv("SARVAMAI_API_KEY")
     client = SarvamAI(
         api_subscription_key=SAVRAMAI_API_KEY,
