@@ -66,7 +66,7 @@ export default function QueryPage() {
         setIsSearching(true);
         try {
             const session_id = localStorage.getItem('session_id');
-            const res = await axios.post(`https://vectorvista.duckdns.org/api/v1/search`, { query, session_id, limit });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/search`, { query, session_id, limit });
             setResults(res.data.results || []);
             setSummary(res.data.summary || '');
             toast.success(res.data.message || 'Data processed successfully');
@@ -74,7 +74,6 @@ export default function QueryPage() {
         } catch (error) {
             setIsSearching(false);
             toast.error(error instanceof Error ? error.message : 'An unknown error occurred');
-            console.error('Invalid JSON:', error);
         } finally {
             setIsSearching(false);
         }
@@ -106,15 +105,15 @@ export default function QueryPage() {
                 <div className="absolute inset-0 bg-zinc-900/5 rounded-2xl blur-xl group-focus-within:bg-zinc-900/10 transition-all"></div>
                 <div className="relative bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-hidden focus-within:border-zinc-400 transition-all">
                     <div className="flex items-center gap-2 bg-zinc-100 px-3 py-2 rounded-t-lg">
-                            <span className="text-xs text-zinc-500 font-medium">Limit</span>
-                            <input
-                                type="number"
-                                min={1}
-                                value={limit}
-                                onChange={(e) => setLimit(Number(e.target.value))}
-                                className="w-16 bg-transparent outline-none text-sm text-zinc-900"
-                            />
-                        </div>
+                        <span className="text-xs text-zinc-500 font-medium">Limit</span>
+                        <input
+                            type="number"
+                            min={1}
+                            value={limit}
+                            onChange={(e) => setLimit(Number(e.target.value))}
+                            className="w-16 bg-transparent outline-none text-sm text-zinc-900"
+                        />
+                    </div>
                     <textarea
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
