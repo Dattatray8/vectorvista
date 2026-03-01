@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Semantic Search - Query Your Data | VectorVista",
   description: "Search your uploaded data using natural language with AI-powered semantic retrieval. Ask questions and get intelligent results based on meaning. Includes speech recognition.",
-  keywords: ["semantic search", "natural language query", "AI search", "data search", "speech recognition search", "intelligent retrieval", "vector search", "meaning-based search"],
+  keywords: ["semantic search engine", "natural language query", "AI search", "data search", "speech recognition search", "intelligent retrieval", "vector search", "meaning-based search"],
   alternates: {
     canonical: "https://vectorvista.vercel.app/search",
   },
