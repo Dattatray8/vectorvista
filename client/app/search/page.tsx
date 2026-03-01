@@ -66,7 +66,7 @@ export default function QueryPage() {
         setIsSearching(true);
         try {
             const session_id = localStorage.getItem('session_id');
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/search`, { query, session_id, limit });
+            const res = await axios.post(`http://13.233.201.125:5000/api/v1/search`, { query, session_id, limit });
             setResults(res.data.results || []);
             setSummary(res.data.summary || '');
             toast.success(res.data.message || 'Data processed successfully');

@@ -64,7 +64,7 @@ export default function DataImportPage() {
       setLoading(true);
       const session_id = localStorage.getItem('session_id');
       const parsedJson = JSON.parse(jsonContent);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/embedding`, { userData: parsedJson, session_id });
+      const res = await axios.post(`http://13.233.201.125:5000/api/v1/embedding`, { userData: parsedJson, session_id });
       toast.success(res.data.message || 'Data processed successfully');
       localStorage.setItem('session_id', res.data.session_id);
       router.push('/search');
