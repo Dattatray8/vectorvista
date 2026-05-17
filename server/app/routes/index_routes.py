@@ -1,9 +1,16 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Response
 from app.db import db
-from datetime import datetime
-from app.helper import get_embedding, normalize_json_to_text, generate_session_id, summarize_data
+from app.helper import (
+    embedding_process,
+    generate_session_id,
+    get_embedding,
+    summarize_data,
+)
 
 index_bp = Blueprint("index", __name__)
+
+data_store = {}
+
 
 @index_bp.route("/")
 def index():
@@ -19,30 +26,28 @@ def test_db():
         return jsonify({"database_connected": False, "error": str(e)}), 500
 
 
-@index_bp.route("/embedding", methods=["POST"])
-def embedding():
+@index_bp.route("/upload", methods=["POST"])
+def upload():
     data = request.get_json()
-    obj = data.get("userData")
     session_id = data.get("session_id")
-    if not obj:
-        return jsonify({"message": "No userData provided"}), 400
-    if not session_id:
+    print(session_id)
+    if not session_id or session_id == "undefined":
         session_id = generate_session_id()
-    else:
-        db.data.delete_many({"session_id": session_id})
-    for ob in obj:
-        normalized_data = normalize_json_to_text(ob)
-        embedding = get_embedding(normalized_data)
-        db.data.insert_one(
-            {
-                "session_id": session_id,
-                "embedding": embedding,
-                "original_data": ob,
-                "normalized_data": normalized_data,
-                "created_at": datetime.utcnow()
-            }
-        )
-    return jsonify({"message": "Data Prepared Successfully", "session_id": session_id})
+        print(session_id)
+    data_store[session_id] = data.get("userData", [])
+    return jsonify({"session_id": session_id})
+
+
+@index_bp.route("/embedding/<session_id>")
+def embedding(session_id):
+    data = data_store.get(session_id)
+    response = Response(
+        embedding_process(data, session_id), mimetype="text/event-stream"
+    )
+    response.headers["X-Accel-Buffering"] = "no"  # Critical for Nginx/Vercel
+    response.headers["Cache-Control"] = "no-cache"
+    response.headers["Connection"] = "keep-alive"
+    return response
 
 
 @index_bp.route("/search", methods=["POST"])
@@ -56,6 +61,14 @@ def search():
             return jsonify({"message": "query is empty", "success": False}), 400
         if not session_id:
             return jsonify({"message": "session not found", "success": False}), 404
+        count = db.data.count_documents({"session_id": session_id})
+        if count == 0:
+            return (
+                jsonify(
+                    {"message": "session is expired or no data found", "success": False}
+                ),
+                404,
+            )
         query_embedding = get_embedding(query)
         results = db.data.aggregate(
             [

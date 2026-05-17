@@ -43,7 +43,7 @@ export default function DataImportPage() {
       reader.readAsText(file);
     }
   };
-
+  
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -64,12 +64,12 @@ export default function DataImportPage() {
       setLoading(true);
       const session_id = localStorage.getItem('session_id');
       const parsedJson = JSON.parse(jsonContent);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/embedding`, { userData: parsedJson, session_id });
-      toast.success(res.data.message || 'Data processed successfully');
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/upload`, { userData: parsedJson, session_id });
       localStorage.setItem('session_id', res.data.session_id);
       router.push('/search');
     } catch (error) {
       setLoading(false);
+      console.log(error)
       toast.error(error instanceof Error ? error.message : 'An unknown error occurred');
       console.error('Invalid JSON:', error);
     } finally {
